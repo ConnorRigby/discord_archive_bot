@@ -1,0 +1,50 @@
+defmodule DiscordDb.Repo.Migrations.AddGuildsTable do
+  use Ecto.Migration
+
+  def change do
+    create table(:guilds, primary_key: false) do
+      add :id, :snowflake, primary_key: true, description: "guild id"
+      add :name, :string, description: "guild name (2-100 characters, excluding trailing and leading whitespace)"
+      add :icon, :string, description: "icon hash"
+      add :icon_hash, :string, description: "icon hash, returned when in the template object"
+      add :splash, :string, description: "splash hash"
+      add :discovery_splash, :string, description: "discovery splash hash; only present for guilds with the \"DISCOVERABLE\"feature"
+      add :owner, :boolean, description: "true if the user is the owner of the guild"
+      add :owner_id, :snowflake, description: "id of owner"
+      add :permissions, :string, description: "total permissions for the user in the guild (excludes overwrites)"
+      add :region, :string, description: "voice region id for the guild (deprecated)"
+      add :afk_channel_id, :snowflake, description: "id of afk channel"
+      add :afk_timeout, :integer, description: "afk timeout in seconds, can be set to: 60, 300, 900, 1800, 3600"
+      add :widget_enabled, :boolean, description: "true if the server widget is enabled"
+      add :widget_channel_id, :snowflake, description: "the channel id that the widget will generate an invite to, or null if set to no invite"
+      add :verification_level, :integer, description: "verification level required for the guild"
+      add :default_message_notifications, :integer, description: "default message notifications level"
+      add :explicit_content_filter, :integer, description: "explicit content filter level"
+      # add :roles, :array, description: "of role objects roles in the guild"
+      # add :emojis, :array, description: "of emoji objects custom guild emojis"
+      # add :features, :array, description: "of guild feature strings enabled guild features"
+      add :mfa_level, :integer, description: "required MFA level for the guild"
+      add :application_id, :snowflake, description: "application id of the guild creator if it is bot-created"
+      add :system_channel_id, :snowflake, description: "the id of the channel where guild notices such as welcome messages and boost events are posted"
+      add :system_channel_flags, :integer, description: "system channel flags"
+      add :rules_channel_id, :snowflake, description: "the id of the channel where Community guilds can display rules and/or guidelines"
+      add :max_presences, :integer, description: "the maximum number of presences for the guild (null is always returned, apart from the largest of guilds)"
+      add :max_members, :integer, description: "the maximum number of members for the guild"
+      add :vanity_url_code, :string, description: "the vanity url code for the guild"
+      add :description, :string, description: "the description of a guild"
+      add :banner, :string, description: "banner hash"
+      add :premium_tier, :integer, description: "premium tier (Server Boost level)"
+      add :premium_subscription_count, :integer, description: "the number of boosts this guild currently has"
+      add :preferred_locale, :string, description: "the preferred locale of a Community guild; used in server discovery and notices from Discord, and sent in interactions; defaults to \"en-US\""
+      add :public_updates_channel_id, :snowflake, description: "the id of the channel where admins and moderators of Community guilds receive notices from Discord"
+      add :max_video_channel_users, :integer, description: "the maximum amount of users in a video channel"
+      add :approximate_member_count, :integer, description: "approximate number of members in this guild, returned from the GET /guilds/<id> endpoint when with_counts is true"
+      add :approximate_presence_count, :integer, description: "approximate number of non-offline members in this guild, returned from the GET /guilds/<id> endpoint when with_counts is true"
+      # add :welcome_screen, :welcome, description: "screen object the welcome screen of a Community guild, shown to new members, returned in an Invite's guild object"
+      add :nsfw_level, :integer, description: "guild NSFW level"
+      # add :stickers, :array, description: "of sticker objects custom guild stickers"
+      add :premium_progress_bar_enabled, :boolean, description: "whether the guild has the boost progress bar enabled"
+      timestamps()
+    end
+  end
+end

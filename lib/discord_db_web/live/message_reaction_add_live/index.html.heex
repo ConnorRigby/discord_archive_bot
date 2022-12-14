@@ -1,0 +1,35 @@
+<h1>Listing Message reaction add</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.message_reaction_add_index_path(@socket, :index)}>
+    <.live_component
+      module={DiscordDbWeb.MessageReactionAddLive.FormComponent}
+      id={@message_reaction_add.id || :new}
+      title={@page_title}
+      action={@live_action}
+      message_reaction_add={@message_reaction_add}
+      return_to={Routes.message_reaction_add_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="message_reaction_add">
+    <%= for message_reaction_add <- @message_reaction_add_collection do %>
+      <tr id={"message_reaction_add-#{message_reaction_add.id}"}>
+        <td>
+          <%= message_reaction_add.count %>
+          <%= message_reaction_add.name %> :
+          <%= message_reaction_add.username %>#<%= message_reaction_add.discriminator %>
+          <span><%= live_redirect "Show", to: Routes.message_reaction_add_show_path(@socket, :show, message_reaction_add) %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
